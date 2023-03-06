@@ -1,6 +1,6 @@
 ﻿namespace Enemy
 {
-    public interface IBotBehavior
+    public interface IEnemyBehavior
     {
         void Enter();
         void Exit();

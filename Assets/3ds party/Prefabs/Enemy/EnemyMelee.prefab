@@ -2364,6 +2364,7 @@ GameObject:
   - component: {fileID: 2219896453590187774}
   - component: {fileID: 3698613747714814128}
   - component: {fileID: 4284273144477810256}
+  - component: {fileID: 3892940015572594544}
   m_Layer: 6
   m_Name: EnemyMelee
   m_TagString: Enemy
@@ -2429,7 +2430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  botController: {fileID: 4128515807926616736}
+  enemyController: {fileID: 4128515807926616736}
   enemyAnimator: {fileID: 3698613747714814128}
 --- !u!114 &4128515807926616736
 MonoBehaviour:
@@ -2443,7 +2444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43707cbcc9eb15444a060dd0edf95914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 0}
+  enemyInfo: {fileID: 3892940015572594544}
 --- !u!54 &8638404283982796964
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2506,6 +2507,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3892940015572594544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152802380099324784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb5dabffa264edda307abef93063f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 0}
 --- !u!1 &6245513775290853882
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,24 +4,31 @@ using UnityEngine.AI;
 
 namespace Enemy
 {
-    public class BotMove : MonoBehaviour, IBotBehavior
+    public class EnemyMove : MonoBehaviour, IEnemyBehavior
     {
         [SerializeField] private float speed;
-        [SerializeField] private BotController botController;
+        [SerializeField] private EnemyController enemyController;
         [SerializeField] private EnemyAnimator enemyAnimator;
+        private Transform target;
         private Transform thisTransform;
         private bool isMelee;
 
         private void Awake()
         {
-            thisTransform = GetComponent<Transform>();
-            isMelee = botController.GetWeaponData() == null;
+            thisTransform = transform;
+            isMelee = enemyController.GetEnemyInfo().GetWeaponData() == null;
+        }
+
+        private void Start()
+        {
+            
+            target = enemyController.GetEnemyInfo().GetTarget();
 
         }
 
-
         public void Enter()
         {
+            
             if (isMelee)
             {
                 enemyAnimator.SetRunMelee(true);
@@ -46,11 +53,11 @@ namespace Enemy
 
         public void CustomFixedUpdate()
         {
-            transform.LookAt(botController.GetTarget());
+            transform.LookAt(target);
             transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
-            if (!isMelee && Vector3.Distance(thisTransform.position, botController.GetTarget().position) < 6f)
+            if (!isMelee && Vector3.Distance(thisTransform.position, target.position) < 6f)
             {
-                botController.SetBehaviorShoot();
+                enemyController.SetBehaviorShoot();
             }
         }
 

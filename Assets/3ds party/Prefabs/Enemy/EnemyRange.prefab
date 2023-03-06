@@ -2396,6 +2396,7 @@ GameObject:
   - component: {fileID: 3698613747714814128}
   - component: {fileID: 4284273144477810256}
   - component: {fileID: -8187983288109227683}
+  - component: {fileID: 964311793489915273}
   m_Layer: 6
   m_Name: EnemyRange
   m_TagString: Enemy
@@ -2462,7 +2463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  botController: {fileID: 4128515807926616736}
+  enemyController: {fileID: 4128515807926616736}
   enemyAnimator: {fileID: 3698613747714814128}
 --- !u!114 &4128515807926616736
 MonoBehaviour:
@@ -2476,7 +2477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43707cbcc9eb15444a060dd0edf95914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: fc5080feae52a474ab54dc272015fb2b, type: 2}
+  enemyInfo: {fileID: 964311793489915273}
 --- !u!54 &8638404283982796964
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2552,10 +2553,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 6
-  botController: {fileID: 4128515807926616736}
+  enemyController: {fileID: 4128515807926616736}
   bulletStartTransform: {fileID: 2691644551257198739}
   prefabBullet: {fileID: 659986901585685787, guid: 8ebdbfbcbc4f3fa4ebd4dc0eea01f61b, type: 3}
   enemyAnimator: {fileID: 3698613747714814128}
+--- !u!114 &964311793489915273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152802380099324784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb5dabffa264edda307abef93063f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: fc5080feae52a474ab54dc272015fb2b, type: 2}
 --- !u!1 &6245513775290853882
 GameObject:
   m_ObjectHideFlags: 0

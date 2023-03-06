@@ -5,44 +5,32 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [RequireComponent(typeof(BotMove))]
-    public class BotController : MonoBehaviour
+    [RequireComponent(typeof(EnemyMove))]
+    public class EnemyController : MonoBehaviour
     {
-        [SerializeField] private WeaponData weaponData;
-        
-        private Transform target;
-        
-        
-        private Dictionary<Type, IBotBehavior> behaviorsMap;
-        private IBotBehavior behaviorCurrent;
+        private Dictionary<Type, IEnemyBehavior> behaviorsMap;
+        private IEnemyBehavior behaviorCurrent;
 
+        [SerializeField] private EnemyInfo enemyInfo;
+
+        public EnemyInfo GetEnemyInfo()
+        {
+            return enemyInfo;
+        }
+        
         private void Awake()
         {
             InitBehaviors();
             SetBehaviorByDefault();
-        }
-
-
-        private void OnEnable()
-        {
-            if (behaviorsMap.ContainsKey(typeof(BotMove)))
-                SetBehaviorMove();
-        }
-
-        public Transform GetTarget()
-        {
-            return target;
+            enemyInfo = GetComponent<EnemyInfo>();
         }
         
-        public void SetTarget(Transform newTarget)
+        private void OnEnable()
         {
-            target = newTarget;
+            if (behaviorsMap.ContainsKey(typeof(EnemyMove)))
+                SetBehaviorMove();
         }
-
-        public WeaponData GetWeaponData()
-        {
-            return weaponData;
-        }
+        
         
         private void Update()
         {
@@ -58,11 +46,11 @@ namespace Enemy
         
         private void InitBehaviors()
         {
-            behaviorsMap = new Dictionary<Type, IBotBehavior>();
+            behaviorsMap = new Dictionary<Type, IEnemyBehavior>();
 
-            behaviorsMap[typeof(BotMove)] = GetComponent<BotMove>();
-            if (weaponData != null)
-                behaviorsMap[typeof(BotShoot)] = GetComponent<BotShoot>();
+            behaviorsMap[typeof(EnemyMove)] = GetComponent<EnemyMove>();
+            if (enemyInfo.GetWeaponData() != null)
+                behaviorsMap[typeof(EnemyShoot)] = GetComponent<EnemyShoot>();
 
             
         }
@@ -74,19 +62,19 @@ namespace Enemy
         
         public void SetBehaviorShoot()
         {
-            var behavior = GetBehavior<BotShoot>();
+            var behavior = GetBehavior<EnemyShoot>();
             SetBehavior(behavior);
         }
         
         public void SetBehaviorMove()
         {
-            var behavior = GetBehavior<BotMove>();
+            var behavior = GetBehavior<EnemyMove>();
             SetBehavior(behavior);
         }
         
         
 
-        private void SetBehavior(IBotBehavior newBehavior)
+        private void SetBehavior(IEnemyBehavior newBehavior)
         {
             if (behaviorCurrent != null)
                 behaviorCurrent.Exit();
@@ -99,7 +87,7 @@ namespace Enemy
         }
 
         
-        private IBotBehavior GetBehavior<T>() where T : IBotBehavior
+        private IEnemyBehavior GetBehavior<T>() where T : IEnemyBehavior
         {
             var type = typeof(T);
             return behaviorsMap[type];

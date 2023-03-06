@@ -6,14 +6,15 @@ using Weapon;
 
 namespace Enemy
 {
-    public class BotShoot : MonoBehaviour, IBotBehavior
+    public class EnemyShoot : MonoBehaviour, IEnemyBehavior
     {
         [SerializeField] private float distance = 6f;
-        [SerializeField] private BotController botController;
+        [SerializeField] private EnemyController enemyController;
         [SerializeField] private Transform bulletStartTransform;
         [SerializeField] private Bullet prefabBullet;
         [SerializeField] private EnemyAnimator enemyAnimator;
         private Transform thisTransform;
+        private Transform target;
         private bool canShoot = true;
         private int damage;
         private float cooldown;
@@ -21,9 +22,14 @@ namespace Enemy
         private void Awake()
         {
             thisTransform = transform;
-            WeaponData weaponData = GetComponent<BotController>().GetWeaponData();
+        }
+
+        private void Start()
+        {
+            WeaponData weaponData = enemyController.GetEnemyInfo().GetWeaponData();
             damage = weaponData.AttackDamage;
             cooldown = weaponData.AttackCooldown;
+            target = enemyController.GetEnemyInfo().GetTarget();
         }
 
         public void Enter()
@@ -42,16 +48,16 @@ namespace Enemy
 
         public void CustomFixedUpdate()
         {
-            thisTransform.LookAt(botController.GetTarget());
+            thisTransform.LookAt(target);
 
-            if (Vector3.Distance(thisTransform.position, botController.GetTarget().position) > distance)
+            if (Vector3.Distance(thisTransform.position, target.position) > distance)
             {
-                botController.SetBehaviorMove();
+                enemyController.SetBehaviorMove();
             } else if (canShoot)
             {
                 canShoot = false;
                 Vector3 position = bulletStartTransform.position;
-                Vector3 targetPosition = botController.GetTarget().position;
+                Vector3 targetPosition = target.position;
                 targetPosition.y = position.y;
                 Bullet bullet = Instantiate(prefabBullet, position, Quaternion.identity);
                 bullet.SetDamage(damage);
@@ -61,7 +67,7 @@ namespace Enemy
             }
         }
 
-        public IEnumerator ShootCooldown()
+        private IEnumerator ShootCooldown()
         {
             yield return new WaitForSeconds(cooldown);
             canShoot = true;

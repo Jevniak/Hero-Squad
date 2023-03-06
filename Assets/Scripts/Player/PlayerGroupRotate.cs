@@ -7,14 +7,8 @@ namespace Player
     public class PlayerGroupRotate : MonoBehaviour
     {
         private bool lookAt;
-        private Transform thisTransform;
         [SerializeField] private List<Transform> playerList;
-
-
-        private void Awake()
-        {
-            thisTransform = transform;
-        }
+        
 
         public void RotateDirection(Vector2 direction)
         {

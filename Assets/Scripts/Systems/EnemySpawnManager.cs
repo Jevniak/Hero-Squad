@@ -83,7 +83,7 @@ namespace Systems
             {
                 tmp = Instantiate(enemyToPool[Random.Range(0,enemyToPool.Count)]);
                 tmp.SetActive(false);
-                tmp.GetComponent<BotController>().SetTarget(target);
+                tmp.GetComponent<EnemyInfo>().SetTarget(target);
                 
                 enemyPool.Add(tmp);
             }
